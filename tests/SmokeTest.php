@@ -15,7 +15,8 @@ class SmokeTest extends TestCase
         );
         $this->assertEquals(
             200,
-            $client->get('/')->getStatusCode()
+            $client->get('/')
+                ->getStatusCode()
         );
     }
     public function testSearchTyres(): void
