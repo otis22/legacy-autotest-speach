@@ -23,7 +23,8 @@ class SmokeTest extends TestCase
         $this->assertEquals(
             200,
             $this->httpClient()
-                ->get('/api/search/tyres/facets.json?facets=width,runflat,sale&season=winter&width=155')->getStatusCode()
+                ->get('/api/search/tyres/facets.json?facets=width,runflat,sale&season=winter&width=155')
+                ->getStatusCode()
         );
     }
 
