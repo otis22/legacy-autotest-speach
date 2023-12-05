@@ -18,12 +18,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Otis22\\PhpSkeleton\\": "src"
+            "Otis22\\BeerMeetup\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Otis22\\PhpSkeleton\\": "tests"
+            "Otis22\\BeerMeetup\\": "tests"
         }
     },
     "scripts": {
