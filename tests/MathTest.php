@@ -29,4 +29,9 @@ class MathTest extends TestCase
             120
         );
     }
+
+    public function testTrueIsTrue(): void
+    {
+        $this->assertTrue(true);
+    }
 }
