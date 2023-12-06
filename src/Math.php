@@ -4,7 +4,8 @@ namespace Otis22\BeerMeetup;
 
 class Math
 {
-    public static function factorial(int $n): int {
+    public static function factorial(int $n): int
+    {
         if ($n === 0) {
             return 1;
         }
