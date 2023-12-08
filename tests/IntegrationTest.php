@@ -10,7 +10,7 @@ class IntegrationTest extends TestCase
     #[DataProvider('getValues')]
     public function testSearchTyresByWidth(int $width): void
     {
-        $response = $this->response('https://www.shinservice.ru/api/search/tyres.json?page=1&width[]=' . $width);
+        $response = $this->response('api/search/tyres.json?page=1&width[]=' . $width);
         $this->assertTrue(count($response['payload']['models']) > 0);
     }
 

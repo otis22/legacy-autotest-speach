@@ -34,5 +34,8 @@
         "style": "vendor/bin/ecs check",
         "style-fix": "vendor/bin/ecs check --fix",
         "check-all": "composer validate && composer style && composer static-analyze && composer unit"
+    },
+    "require": {
+        "php-webdriver/webdriver": "^1.1"
     }
 }

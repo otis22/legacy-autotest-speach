@@ -1,0 +1,37 @@
+version: '3'
+services:
+  selenoid:
+    image: "aerokube/selenoid"
+    network_mode: bridge
+    ports:
+      - "4444:4444"
+    volumes:
+      - "$PWD:/etc/selenoid/" # assumed current dir contains browsers.json
+      - "/var/run/docker.sock:/var/run/docker.sock"
+      - "./browsers.json:/etc/selenoid/browsers.json"
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "http://selenoid:4444/status"]
+      interval: 60s
+      timeout: 20s
+      retries: 5
+  selenoid-ui:
+    image: "aerokube/selenoid-ui"
+    network_mode: bridge
+    links:
+      - selenoid
+    ports:
+      - "8080:8080"
+    command: ["--selenoid-uri", "http://selenoid:4444"]
+  php:
+    build:
+      context: "docker"
+      args:
+        VERSION: "8.2"
+    container_name: "speach-php"
+    network_mode: bridge
+    links:
+      - selenoid
+    volumes:
+      - "$PWD:/app"
+    command: [sh, -c, "sleep 1000000"]
+#composer check-all &&
