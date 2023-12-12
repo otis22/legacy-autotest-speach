@@ -29,13 +29,16 @@ help:
 	@echo "  static-analyze       Check static analyze"
 	@echo "  unit                 Run unit tests"
 	@echo "  coverage             Check test coverage"
-	@echo "  all                  Run: build install style static-analyze unit coverage"
+	@echo "  all                  Run: build install style static-analyze unit integration smoke coverage"
 
 build:
 	docker build --build-arg VERSION=$(php_version) --tag $(base_dir):$(php_version) ./docker/
 
 exec:
 	docker run -u=$(shell id -u):$(shell id -g) --rm -ti -v $(CURDIR):/app:rw -w /app $(base_dir):$(php_version) sh
+
+exec_test:
+	docker compose -f ./docker-compose-testing.yml run php sh
 
 serve:
 	docker run -p$(server_port):8080 --rm -v $(CURDIR):/app -w /app $(base_dir):$(php_version) php -S 0.0.0.0:8080
@@ -56,11 +59,20 @@ static-analyze:
 	$(docker) composer static-analyze
 
 unit:
-	$(docker) -dzend_extension=xdebug.so -dxdebug.mode=coverage  vendor/bin/phpunit
+	$(docker) -dzend_extension=xdebug.so -dxdebug.mode=coverage  vendor/bin/phpunit --testsuite unit
+
+integration:
+	$(docker) -dzend_extension=xdebug.so -dxdebug.mode=coverage  vendor/bin/phpunit --testsuite integration
+
+smoke:
+	$(docker) -dzend_extension=xdebug.so -dxdebug.mode=coverage  vendor/bin/phpunit --testsuite smoke
+
+e2e:
+	$(docker) -dzend_extension=xdebug.so -dxdebug.mode=coverage  vendor/bin/phpunit --testsuite e2e
 
 coverage:
 	$(docker) composer coverage
 
-all: build install style static-analyze unit coverage
+all: build install style static-analyze unit integration unit coverage
 
 .PHONY: build

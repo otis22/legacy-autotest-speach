@@ -1,6 +1,6 @@
 <?php
 
-namespace Otis22\BeerMeetup;
+namespace Otis22\BeerMeetup\integration;
 
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;

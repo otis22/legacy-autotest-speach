@@ -1,6 +1,6 @@
 <?php
 
-namespace Otis22\BeerMeetup;
+namespace Otis22\BeerMeetup\smoke;
 
 use GuzzleHttp\ClientInterface;
 use PHPUnit\Framework\TestCase;

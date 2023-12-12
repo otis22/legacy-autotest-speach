@@ -1,7 +1,8 @@
 <?php
 
-namespace Otis22\BeerMeetup;
+namespace Otis22\BeerMeetup\unit;
 
+use Otis22\BeerMeetup\Math;
 use PHPUnit\Framework\TestCase;
 
 class MathTest extends TestCase
