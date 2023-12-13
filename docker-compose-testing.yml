@@ -29,8 +29,11 @@ services:
         VERSION: "8.2"
     container_name: "speach-php"
     network_mode: bridge
+    depends_on:
+      - selenoid
+      - selenoid-ui
     links:
       - selenoid
     volumes:
       - "$PWD:/app"
-    command: [sh, -c, "sleep 1000000"]
+    command: [sh, -c, "composer e2e"]

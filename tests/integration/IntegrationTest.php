@@ -7,17 +7,17 @@ use PHPUnit\Framework\TestCase;
 
 class IntegrationTest extends TestCase
 {
-    #[DataProvider('getValues')]
+    #[DataProvider('getTyresWidthsValues')]
     public function testSearchTyresByWidth(int $width): void
     {
         $response = $this->response('api/search/tyres.json?page=1&width[]=' . $width);
-        $this->assertTrue(count($response['payload']['models']) > 0);
+        $this->assertGreaterThan(0, count($response['payload']['models']));
     }
 
     /**
      * @return array<array<int>>
      */
-    public static function getValues(): array
+    public static function getTyresWidthsValues(): array
     {
         return [[155], [165], [175]];
     }

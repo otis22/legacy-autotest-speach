@@ -1,11 +1,24 @@
 # Проект для Доклада в Краснодаре в декабре 2023
 
-composer require --dev phpunit/phpunit
-mkdir tests
-./vendor/bin/phpunit --generate-configuration
-composer require php-webdriver/webdriver
+Тесты находятся в директории `tests`. Там есть поддеректории для каждого вида тестов с примерами. 
 
+## Как начать? 
 
-docker compose -f docker-compose-testing.yml up
+```shell
+make build
+```
 
-docker exec -it speach-php sh
+## Как запустить тесты + статанализ (кроме E2E)?
+```shell
+make all
+```
+
+## Как запустисть E2E?
+
+```shell
+make e2e
+```
+## Куда смотреть?
+
+1. В терминал
+2. В [selenoid-ui](http://localhost:8080) по адресу http://localhost:8080

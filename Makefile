@@ -22,17 +22,23 @@ help:
 	@echo "  build                Build Docker"
 	@echo "  serve                Run server php -S 0.0.0.0:8080"
 	@echo "  exec                 Run shell in container"
+	@echo "  exec_test            Run shell in e2e php-container"
 	@echo "  install              Install composer dependencies with dev"
 	@echo "  install-no-dev       Install composer dependencies without dev"
 	@echo "  style                Check code style"
 	@echo "  style-fix            Fix code style"
 	@echo "  static-analyze       Check static analyze"
 	@echo "  unit                 Run unit tests"
+	@echo "  smoke                Run smoke tests"
+	@echo "  integration          Run integration tests"
+	@echo "  e2e                  Build compose and run e2e tests"
+	@echo "  e2e-compose          Run e2e test compose"
 	@echo "  coverage             Check test coverage"
 	@echo "  all                  Run: build install style static-analyze unit integration smoke coverage"
 
 build:
 	docker build --build-arg VERSION=$(php_version) --tag $(base_dir):$(php_version) ./docker/
+    docker pull selenoid/vnc_chrome:112.0
 
 exec:
 	docker run -u=$(shell id -u):$(shell id -g) --rm -ti -v $(CURDIR):/app:rw -w /app $(base_dir):$(php_version) sh
@@ -67,12 +73,14 @@ integration:
 smoke:
 	$(docker) -dzend_extension=xdebug.so -dxdebug.mode=coverage  vendor/bin/phpunit --testsuite smoke
 
-e2e:
-	$(docker) -dzend_extension=xdebug.so -dxdebug.mode=coverage  vendor/bin/phpunit --testsuite e2e
+e2e-compose:
+	docker compose -f docker-compose-testing.yml build
+	docker compose -f docker-compose-testing.yml up
 
 coverage:
 	$(docker) composer coverage
 
-all: build install style static-analyze unit integration unit coverage
+e2e: build install e2e-compose
+all: build install style static-analyze unit integration smoke coverage
 
 .PHONY: build
