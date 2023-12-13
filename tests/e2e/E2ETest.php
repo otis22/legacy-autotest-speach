@@ -13,9 +13,7 @@ class E2ETest extends \PHPUnit\Framework\TestCase
     public function setUp(): void
     {
         $options = new ChromeOptions();
-        $options->addArguments([
-            '--window-size=1920,1080',
-        ]);
+        $options->addArguments(['--window-size=1920,1080', ]);
         $caps = DesiredCapabilities::chrome();
         $caps->setCapability('version', "112.0");
         $caps->setCapability('browserName', "chrome");
