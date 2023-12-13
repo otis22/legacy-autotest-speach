@@ -2,10 +2,10 @@
 
 namespace Otis22\BeerMeetup\e2e;
 
+use Facebook\WebDriver\Chrome\ChromeOptions;
 use Facebook\WebDriver\Remote\DesiredCapabilities;
 use Facebook\WebDriver\Remote\RemoteWebDriver;
 use Facebook\WebDriver\WebDriverBy;
-use Facebook\WebDriver\Chrome\ChromeOptions;
 
 class E2ETest extends \PHPUnit\Framework\TestCase
 {
@@ -13,9 +13,9 @@ class E2ETest extends \PHPUnit\Framework\TestCase
     public function setUp(): void
     {
         $options = new ChromeOptions();
-        $options->addArguments(array(
+        $options->addArguments([
             '--window-size=1920,1080',
-        ));
+        ]);
         $caps = DesiredCapabilities::chrome();
         $caps->setCapability('version', "112.0");
         $caps->setCapability('browserName', "chrome");
@@ -36,13 +36,9 @@ class E2ETest extends \PHPUnit\Framework\TestCase
             WebDriverBy::xpath("//button[@type='submit' and text()='Подобрать шины']")
         )->click();
         sleep(3);
-        $this->driver->findElement(
-            WebDriverBy::xpath("//button[text()='В корзину']")
-        )->click();
+        $this->driver->findElement(WebDriverBy::xpath("//button[text()='В корзину']"))->click();
         sleep(3);
-        $this->driver->findElement(
-            WebDriverBy::xpath("//button[text()='Оформить']")
-        )->click();
+        $this->driver->findElement(WebDriverBy::xpath("//button[text()='Оформить']"))->click();
         sleep(3);
         $this->driver->findElement(
             WebDriverBy::xpath("//button[text()='Перейти к оформлению']")
@@ -52,14 +48,10 @@ class E2ETest extends \PHPUnit\Framework\TestCase
             WebDriverBy::xpath("//p[text()='Андропова проспект']")
         )->click();
         sleep(1);
-        $this->driver->findElement(
-            WebDriverBy::xpath("//button[text()='Заберу отсюда']")
-        )->click();
+        $this->driver->findElement(WebDriverBy::xpath("//button[text()='Заберу отсюда']"))->click();
         $this->assertNotCount(
             0,
-            $this->driver->findElements(
-                WebDriverBy::xpath('//*[contains(text(),"Способ оплаты")]')
-            )
+            $this->driver->findElements(WebDriverBy::xpath('//*[contains(text(),"Способ оплаты")]'))
         );
     }
 }
